@@ -1,4 +1,4 @@
-import{Injectable, inject} from '@angular/core';
+import{Injectable, inject, signal} from '@angular/core';
 import{HttpClient} from '@angular/common/http';
 import{User} from '../models/user.model';
 
@@ -16,11 +16,39 @@ export class UserService{
     private http = inject(HttpClient);
     private url= 'https://jsonplaceholder.typicode.com/users';
 
-    /* prepara una peticion HTTP tipo GET
-    User[] esperamos recibir arreglo de usuarios */
+    users = signal<User[]>([]);
+    favorites = signal<number[]>([]);
+    loading = signal(false);
+    error = signal('');
 
-    getUsers(){
-        return this.http.get<User[]>(this.url);
+    loadUsers(){
+        if(this.users().length > 0 || this.loading()) return;
+
+        this.loading.set(true);
+        this.error.set('');
+
+        this.http.get<User[]>(this.url).subscribe({
+            next: (data) => {
+                this.users.set(data);
+                this.loading.set(false);
+            },
+            error: () => {
+                this.error.set('No se pudieron cargar los usuarios.');
+                this.loading.set(false);
+            }
+        });
+    }
+
+    toggleFavorite(userId: number) {
+        this.favorites.update(current =>
+        current.includes(userId)
+            ? current.filter(id => id !== userId)
+            : [...current, userId]
+        );
+    }
+
+    isFavorite(userId: number) {
+        return this.favorites().includes(userId);
     }
 }
 

@@ -1,0 +1,34 @@
+<main class="container">
+    <h2>
+        {{showFavorites ? 'Mis favoritos' : 'Todos los usua'}}
+    </h2>
+
+    @if (userService.loading()){
+        <p>Cargando...</p>
+
+    }@else if (userService.error()){
+        <p>{{userService.error()}}</p>
+
+    }@else{
+        <div class="search-box">
+            <label for="search">Buscar usuario por nombre:</label>
+            <input id="search" type="search" placeholder="Escribe un nombre..."
+            #searchInput (input)="searchText.set(searchInput.value)">
+        </div>
+
+        <p>Mostrando {{filteredUsers().length}} usuarios</p>
+        
+        <section class="user-list">
+            @for (user of filteredUsers(); track user.id){
+                <app-user-card [user]="user"
+                [isFavorite]="userService.isFavorite(user.id)"
+                (favoriteToggled)="userService.toggleFavorite($event)"
+                />
+
+            }@empty{
+                <p>No se encontraron usuarios.</p>
+            }
+        </section>
+    }
+
+</main>

@@ -1,40 +1,17 @@
-<main class="container">
+<header class="header">
   <h1>Directorio de Usuarios</h1>
   <p>Consulta de usuarios con framework Angular</p>
-  <p><strong>Favoritos:</strong> {{ favorites().length }}</p>
 
+  <p>
+    <strong>Favoritos:</strong>
+    {{ userService.favorites().length }}
+  </p>
 
-  @if (loading()){
-    <p>Cargando...</p>
+  <nav aria-label="Navegación principal">
+    <a routerLink="/">Todos los usuarios</a>
+    <a routerLink="/favorites">Mis favoritos</a>
+  </nav>
+  
+</header>
 
-  }@else if (error()){
-    <p>{{error()}}</p>
-
-  }@else{
-    <!-- BUSCADOR -->
-    <div class="search-box">
-      <label for="search">Buscar usuario por nombre:</label>
-      <input id="search" type="search" placeholder = "Escribe un nombre"
-      #searchInput (input) ="searchText.set(searchInput.value)">
-    </div>
-
-    <p>
-      Mostrando {{filteredUsers().length}} de {{users().lenght}} usuarios
-    </p>
-
-    <!-- LISTA DE USUARIOS -->
-    <section class="user-list">
-      @for (user of users(); track user.id){
-        <app-user-card 
-          [user] = "user"
-          [isFavorite]="isFavorite(user.id)"
-          (favoriteToggled)="toggleFavorite($event)"
-        />
-
-      }@empty{
-        <p>No existen usuarios disponibles.</p>
-      }
-      
-    </section>
-  }
-</main>
+<router-outlet />
