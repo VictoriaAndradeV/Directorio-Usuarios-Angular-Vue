@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import type { User } from '../types/user';
 import { getUsers } from '../services/userService';
 import UserCard from '../components/UserCard.vue';
 
-
-// Estados de la aplicación
+//estados de la app
 const users = ref<User[]>([]);
 const loading = ref(true);
 const error = ref('');
 
-
+//buscar y favoritos
 const searchText = ref('');
+const favorites = ref<number[]>([]);
 
+//identificar la pagina actual
+const route = useRoute();
+
+const showFavorites = computed(() =>
+  route.path === '/favorites'
+);
+
+//filtrar users
 const filteredUsers = computed(() =>
   users.value.filter(user =>
+    (!showFavorites.value || favorites.value.includes(user.id)) &&
     user.name.toLowerCase().includes(
       searchText.value.trim().toLowerCase()
     )
   )
 );
 
-
-// Lista de favoritos
-const favorites = ref<number[]>([]);
-
-// Consultar usuarios al cargar la página
+//consutar users
 onMounted(async () => {
   try {
     users.value = await getUsers();
@@ -36,7 +42,7 @@ onMounted(async () => {
   }
 });
 
-// Agregar o quitar usuarios favoritos
+//aniadir o quitar de fav
 function toggleFavorite(userId: number) {
   if (favorites.value.includes(userId)) {
     favorites.value = favorites.value.filter(id => id !== userId);
@@ -46,19 +52,19 @@ function toggleFavorite(userId: number) {
 }
 </script>
 
+
 <template>
   <main class="container">
+    <h2>{{showFavorites ? 'Mis favoritos' : 'Todos los usuarios'}}</h2>
 
-    <p><strong>Favoritos:</strong> {{ favorites.length }}</p>
+    <p><strong>Favoritos:</strong> {{favorites.length}}</p>
 
     <p v-if="loading">Cargando...</p>
-
     <p v-else-if="error">{{ error }}</p>
 
-    
     <div v-else>
 
-      <!-- Búsqueda de usuarios -->
+      <!--buscar users-->
       <div class="search-box">
         <label for="search">Buscar usuario por nombre:</label>
 
@@ -75,7 +81,7 @@ function toggleFavorite(userId: number) {
         {{ users.length }} usuarios
       </p>
 
-      <!-- Tarjetas de usuarios -->
+      
       <section class="user-list">
 
         <UserCard
@@ -89,7 +95,11 @@ function toggleFavorite(userId: number) {
       </section>
 
       <p v-if="filteredUsers.length === 0">
-        No se encontraron usuarios.
+        {{
+          showFavorites && favorites.length === 0
+            ? 'No existen usuarios favoritos'
+            : 'No se encontraron usuarios'
+        }}
       </p>
 
     </div>
