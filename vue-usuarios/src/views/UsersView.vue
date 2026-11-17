@@ -108,19 +108,22 @@ function toggleFavorite(userId: number) {
 </template>
 
 <style scoped>
+
 .container {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-.user-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.container h2 {
+  color: #183b73;
+  font-size: 26px;
 }
 
+.container p {
+  color: #33465f;
+}
 
 .search-box {
   margin: 25px 0;
@@ -129,15 +132,32 @@ function toggleFavorite(userId: number) {
 .search-box label {
   display: block;
   margin-bottom: 8px;
+  color: #33465f;
+  font-weight: bold;
 }
 
 .search-box input {
   width: 100%;
   max-width: 400px;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
+  padding: 11px;
+  border: 1px solid #6c83a5;
+  border-radius: 7px;
   font-size: 15px;
+  box-sizing: border-box;
 }
 
+.search-box input::placeholder {
+  color: #52627b;
+}
+
+.search-box input:focus {
+  outline: 2px solid #1e4f91;
+  outline-offset: 2px;
+}
+
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
 </style>

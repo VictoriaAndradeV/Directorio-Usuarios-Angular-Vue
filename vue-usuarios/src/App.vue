@@ -16,26 +16,47 @@
 .header {
   max-width: 1100px;
   margin: 30px auto 0;
-  padding: 0 20px;
+  padding: 25px;
+  background-color: #dce8fa;
+  border-radius: 12px;
   font-family: Arial, sans-serif;
+}
+
+.header h1 {
+  color: #183b73;
+  margin-top: 0;
+}
+
+.header p {
+  color: #33465f;
 }
 
 nav {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-top: 20px;
 }
 
 nav a {
-  color: #2563eb;
+  background-color: #1e4f91;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 7px;
   text-decoration: none;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  background-color: #14386b;
 }
 
 nav a.router-link-exact-active {
+  background-color: #14386b;
   font-weight: bold;
+}
+
+nav a:focus-visible {
+  outline: 3px solid #183b73;
+  outline-offset: 3px;
 }
 </style>

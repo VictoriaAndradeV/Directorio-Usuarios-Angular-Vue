@@ -34,9 +34,10 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
+
 .user-card {
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid #a3badd;
   border-radius: 10px;
   padding: 20px;
   height: 100%;
@@ -44,30 +45,36 @@ const emit = defineEmits<{
 }
 
 .user-card h2 {
-  color: #243b53;
-  font-size: 20px;
+  color: #183b73;
+  font-size: 19px;
   margin-top: 0;
 }
 
 .user-card p {
-  color: #555555;
+  color: #33465f;
   font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.user-card strong {
+  color: #1d365c;
+  margin-right: 4px;
 }
 
 .user-card button {
-  background-color: #2563eb;
+  background-color: #2859a5;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 15px;
   cursor: pointer;
 }
 
 .user-card button:hover {
-  background-color: #1d4ed8;
+  background-color: #1d447e;
 }
 
 .user-card button[aria-pressed="true"] {
-  background-color: #64748b;
+  background-color: #673a8a;
 }
 </style>
