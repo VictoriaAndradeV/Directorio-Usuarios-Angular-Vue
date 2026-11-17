@@ -1,0 +1,36 @@
+.user-card {
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.user-card h2 {
+  color: #243b53;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.user-card p {
+  color: #555555;
+  font-size: 14px;
+}
+
+.user-card button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.user-card button:hover {
+  background-color: #1d4ed8;
+}
+
+.user-card button[aria-pressed="true"] {
+  background-color: #64748b;
+}
