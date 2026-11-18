@@ -30,7 +30,7 @@ directorio-usuarios-angular-vue/
 
 ## Instalación y ejecución
 
-Se necesita tener instalados **Node.js** y **npm**. Desde la carpeta principal del repositorio, ejecutar los comandos correspondientes a cada framework.
+Para ejecutar los proyectos se requiere Node.js y npm. Es recomendable usar Node.js 22.22.3 , Node.js 24.15.0 o posterior, o Node.js 26 o superior.
 
 ### Angular
 
